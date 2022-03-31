@@ -338,41 +338,51 @@ launch_shinystan(fit5)
 print(fit5, pars=c("elleq", "sigma", "mu", "mu_group"), probs=c(0.025, 0.975))
 zzz5 <- extract(fit5)$z
 out_indiv <- tibble(t = c(rep(obs_times, each = num_groups), obs_times, tnew),
-                    group_ids = c(rep(1:5, length(obs_times)), 
-                                  rep('mu', length(obs_times)), 
-                                  rep('mu', length(tnew))),
+                    group_ids = c(rep(paste('group', 1:5), length(obs_times)), 
+                                  rep('overall', length(obs_times)), 
+                                  rep('overall', length(tnew))),
                     median = pnorm(apply(zzz5[1:4000,], 2, median)),
                     lower = pnorm(apply(zzz5[1:4000,], 2, quantile, prob=0.025)),
                     uper = pnorm(apply(zzz5[1:4000,], 2, quantile, prob=0.975)))
 
 indiv_obs <- tibble(counts = as.numeric(t(indiv_counts)) / num_reps, 
                     time = rep(obs_times, each = num_groups * num_reps), 
-                    group_ids = rep(rep(1:num_groups, each = num_reps), N)) %>%
+                    group_ids = rep(rep(paste('group', 1:5), each = num_reps), N)) %>%
   group_by(time,group_ids) %>%
   summarize(counts = sum(counts), .groups = 'drop')
 
 mu_data <- tibble(x=rep(t,6), 
                   y=c(pnorm(drop(yprev)), pnorm(drop(yprev) + mu[1]), pnorm(drop(yprev) + mu[2]),
                       pnorm(drop(yprev) + mu[3]), pnorm(drop(yprev) + mu[4]), pnorm(drop(yprev) + mu[5])), 
-                  group_ids = rep(c('mu', 1:5), each = length(t)))
+                  group_ids = rep(c('overall', paste('group', 1:5)), each = length(t)))
 
-mu_data <- tibble(x=t,y=c(pnorm(drop(yprev))),group_ids = rep(c('mu'), each = length(t)))
-mu_data1 <- tibble(x=t,y=c(pnorm(drop(yprev)+ mu[1])),group_ids = rep(c('1'), each = length(t)))
-mu_data2 <- tibble(x=t,y=c(pnorm(drop(yprev)+ mu[2])),group_ids = rep(c('2'), each = length(t)))
-mu_data3 <- tibble(x=t,y=c(pnorm(drop(yprev)+ mu[3])),group_ids = rep(c('3'), each = length(t)))
-mu_data4 <- tibble(x=t,y=c(pnorm(drop(yprev)+ mu[4])),group_ids = rep(c('4'), each = length(t)))
-mu_data5 <- tibble(x=t,y=c(pnorm(drop(yprev)+ mu[5])),group_ids = rep(c('5'), each = length(t)))
+mu_data <- tibble(x=t,y=c(pnorm(drop(eta) + mu01)),group_ids = rep(c('overall'), each = length(t)))
+mu_data1 <- tibble(x=t,y=c(pnorm(drop(eta) + mu[1])),group_ids = rep(c('group 1'), each = length(t)))
+mu_data2 <- tibble(x=t,y=c(pnorm(drop(eta) + mu[2])),group_ids = rep(c('group 2'), each = length(t)))
+mu_data3 <- tibble(x=t,y=c(pnorm(drop(eta) + mu[3])),group_ids = rep(c('group 3'), each = length(t)))
+mu_data4 <- tibble(x=t,y=c(pnorm(drop(eta) + mu[4])),group_ids = rep(c('group 4'), each = length(t)))
+mu_data5 <- tibble(x=t,y=c(pnorm(drop(eta) + mu[5])),group_ids = rep(c('group 5'), each = length(t)))
 
+
+rug_data <- tibble(t = rep(obs_times, 6), group_ids = rep(c(paste('group', 1:5), 'overall'), each = length(obs_times))) 
 
 out_indiv %>% ggplot() +
   geom_ribbon(aes(x=t, ymin=lower, ymax=uper), fill='blue', alpha=0.25) +
-  geom_line(aes(x=t, y=y), color='black', data = mu_data) + theme_bw() +
-  geom_line(aes(x=t, y=y), color='black', data = mu_data1) +
-  geom_line(aes(x=t, y=y), color='black', data = mu_data2) +
-  geom_line(aes(x=t, y=y), color='black', data = mu_data3) +
-  geom_line(aes(x=t, y=y), color='black', data = mu_data4) +
-  geom_line(aes(x=t, y=y), color='black', data = mu_data5) +
-  facet_wrap(~group_ids) + geom_line(data = out_indiv, aes(x=t, y=median), linetype=3) +
+  geom_line(aes(x=t, y=y), color='black', data = mu_data, linetype=3) + theme_bw() +
+  geom_line(aes(x=t, y=y), color='black', data = mu_data1, linetype=3) +
+  geom_line(aes(x=t, y=y), color='black', data = mu_data2, linetype=3) +
+  geom_line(aes(x=t, y=y), color='black', data = mu_data3, linetype=3) +
+  geom_line(aes(x=t, y=y), color='black', data = mu_data4, linetype=3) +
+  geom_line(aes(x=t, y=y), color='black', data = mu_data5, linetype=3) +
+  facet_wrap(~group_ids) + geom_line(data = out_indiv, aes(x=t, y=median)) +
   geom_point(data=indiv_obs, aes(x=time, y=counts), shape=4) +
-  ylim(0,.5) 
+  ylim(0,.5) + geom_rug(aes(x = t), data = rug_data) + ylab("Prevalence") +
+  xlab('Days') + ggtitle('Synthetic study 3')
 
+# plot(fit5, pars = c('mu', 'mu_group')) + 
+#   geom_point(y =1 ,x =mu[5] , size = 3, pch = 23, fill = 'blue') +
+#   geom_point(y =2 ,x =mu[4] , size = 3, pch = 23, fill = 'blue') +
+#   geom_point(y =3 ,x =mu[3] , size = 3, pch = 23, fill = 'blue') +
+#   geom_point(y =4 ,x =mu[2] , size = 3, pch = 23, fill = 'blue') +
+#   geom_point(y =5 ,x =mu[1] , size = 3, pch = 23, fill = 'blue') +
+#   geom_point(y =6 ,x =mu01 , size = 3, pch = 23, fill = 'blue') 

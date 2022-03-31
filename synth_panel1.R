@@ -124,15 +124,15 @@ indiv_obs_km <- tibble(t = obs_times,
                     freq = rowSums(indiv_counts) / (k*m))
 
 
-# saveRDS(list(out_pool, out_indiv, pool_obs, indiv_obs, sim_df, out_indiv_km, indiv_obs_km), "SIMpanel1_370119")
-# my_list <- readRDS("SIMpanel1_370119")
-# 
-# ggplot() + 
-#   geom_ribbon(data = my_list[[2]], aes(x=t, ymin=lower, ymax=uper), fill='blue', alpha=0.25) + 
-#   geom_ribbon(data = my_list[[1]], aes(x=t, ymin=lower, ymax=uper), fill='red', alpha=0.5) +
-#   geom_line(aes(x=t, y=pnorm(yprev)), color='black') + theme_classic() + 
-#   geom_line(data = my_list[[1]], aes(x=t, y=median), linetype=2) + 
-#   geom_line(data = my_list[[2]], aes(x=t, y=median), linetype=3) +
-#   geom_point(data=my_list[[3]], aes(x=t, y=freq), shape=1) +
-#   geom_point(data=my_list[[4]], aes(x=t, y=freq), shape=4) +
-#   ylim(0,.5)
+saveRDS(list(out_pool, out_indiv, pool_obs, indiv_obs, sim_df, out_indiv_km, indiv_obs_km), "SIMpanel1_370119")
+my_list <- readRDS("SIMpanel1_370119")
+
+ggplot() +
+  geom_ribbon(data = my_list[[2]], aes(x=t, ymin=lower, ymax=uper), fill='blue', alpha=0.25) +
+  geom_ribbon(data = my_list[[1]], aes(x=t, ymin=lower, ymax=uper), fill='red', alpha=0.5) +
+  geom_line(aes(x=t, y=pnorm(yprev)), color='black') + theme_classic() +
+  geom_line(data = my_list[[1]], aes(x=t, y=median), linetype=2) +
+  geom_line(data = my_list[[2]], aes(x=t, y=median), linetype=3) +
+  geom_point(data=my_list[[3]], aes(x=t, y=freq), shape=1) +
+  geom_point(data=my_list[[4]], aes(x=t, y=freq), shape=4) +
+  ylim(0,.5)
