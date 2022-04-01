@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  31 MAR 2022 13:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  31 MAR 2022 13:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**JSSAM.tex
-(./JSSAM.tex
+**JSSAM_Blind.tex
+(./JSSAM_Blind.tex
 LaTeX2e <2016/03/31>
 Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/base/article.cls
@@ -635,8 +635,8 @@ File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 \Gin@req@height=\dimen131
 \Gin@req@width=\dimen132
 )
-(./JSSAM.aux)
-\openout1 = `JSSAM.aux'.
+(./JSSAM_Blind.aux)
+\openout1 = `JSSAM_Blind.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
 LaTeX Font Info:    ... okay on input line 69.
@@ -667,9 +667,9 @@ LaTeX Info: Redefining \ref on input line 69.
 LaTeX Info: Redefining \pageref on input line 69.
 LaTeX Info: Redefining \nameref on input line 69.
 
-(./JSSAM.out) (./JSSAM.out)
+(./JSSAM_Blind.out) (./JSSAM_Blind.out)
 \@outlinefile=\write3
-\openout3 = `JSSAM.out'.
+\openout3 = `JSSAM_Blind.out'.
 
 LaTeX Info: Redefining \microtypecontext on input line 69.
 Package microtype Info: Generating PDF output.
@@ -730,15 +730,9 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 (/usr/local/texlive/2016/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 71.
 
-(/usr/local/texlive/2016/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-Package microtype Info: Loading generic settings for font family
-(microtype)             `cmtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
+LaTeX Warning: No \author given.
+
 
 Underfull \hbox (badness 10000) in paragraph at lines 74--77
 
@@ -747,41 +741,55 @@ Underfull \hbox (badness 10000) in paragraph at lines 74--77
 [1
 
 {/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[2] [3] [4] [5] [6] [7] <Figure1.pdf, id=201, 794.97pt x 449.68pt>
+[2] [3] [4] [5] [6] <Figure1.pdf, id=191, 794.97pt x 449.68pt>
 File: Figure1.pdf Graphic file (type pdf)
 
 <use Figure1.pdf>
 Package pdftex.def Info: Figure1.pdf used on input line 257.
 (pdftex.def)             Requested size: 375.80542pt x 212.5847pt.
- [8 <./Figure1.pdf>]
-<Figure5.pdf, id=220, 578.16pt x 433.62pt>
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[7] <Figure5.pdf, id=205, 578.16pt x 433.62pt>
 File: Figure5.pdf Graphic file (type pdf)
  <use Figure5.pdf>
 Package pdftex.def Info: Figure5.pdf used on input line 283.
 (pdftex.def)             Requested size: 375.80542pt x 281.84966pt.
- [9 <./Figure5.pdf>] <Figure2.pdf, id=238, 794.97pt x 361.35pt>
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[8 <./Figure1.pdf>] <Figure2.pdf, id=224, 794.97pt x 361.35pt>
 File: Figure2.pdf Graphic file (type pdf)
- <use Figure2.pdf>
+
+<use Figure2.pdf>
 Package pdftex.def Info: Figure2.pdf used on input line 302.
 (pdftex.def)             Requested size: 375.80542pt x 170.827pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[10 <./Figure2.pdf>] <Figure6.pdf, id=256, 578.16pt x 433.62pt>
+ [9 <./Figure5.pdf>]
+<Figure6.pdf, id=241, 578.16pt x 433.62pt>
 File: Figure6.pdf Graphic file (type pdf)
-
-<use Figure6.pdf>
+ <use Figure6.pdf>
 Package pdftex.def Info: Figure6.pdf used on input line 328.
 (pdftex.def)             Requested size: 375.80542pt x 281.84966pt.
- [11 <./Figure6.pdf>]
-<Figure3.pdf, id=274, 794.97pt x 361.35pt>
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[10 <./Figure2.pdf>] <Figure3.pdf, id=260, 794.97pt x 361.35pt>
 File: Figure3.pdf Graphic file (type pdf)
- <use Figure3.pdf>
+
+<use Figure3.pdf>
 Package pdftex.def Info: Figure3.pdf used on input line 339.
 (pdftex.def)             Requested size: 375.80542pt x 170.827pt.
 
-<Figure4.pdf, id=275, 794.97pt x 469.755pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<Figure4.pdf, id=261, 794.97pt x 469.755pt>
 File: Figure4.pdf Graphic file (type pdf)
  <use Figure4.pdf>
 Package pdftex.def Info: Figure4.pdf used on input line 360.
@@ -790,25 +798,26 @@ Package pdftex.def Info: Figure4.pdf used on input line 360.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[12 <./Figure3.pdf>] [13 <./Figure4.pdf>] (./JSSAM.bbl [14])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 401.
+[11 <./Figure6.pdf>] [12 <./Figure3.pdf>] [13 <./Figure4.pdf>]
+(./JSSAM_Blind.bbl [14])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 403.
  [15]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 401.
- (./JSSAM.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 401.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 401.
-Package rerunfilecheck Info: File `JSSAM.out' has not changed.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 403.
+ (./JSSAM_Blind.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 403.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 403.
+Package rerunfilecheck Info: File `JSSAM_Blind.out' has not changed.
 (rerunfilecheck)             Checksum: E884D5656ADD3179D6C30FB7BE989062;1618.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 401.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 403.
  ) 
 Here is how much of TeX's memory you used:
- 9081 strings out of 493014
- 133580 string characters out of 6133351
- 361269 words of memory out of 5000000
- 12251 multiletter control sequences out of 15000+600000
- 27055 words of font info for 137 fonts, out of 8000000 for 9000
+ 9053 strings out of 493014
+ 132926 string characters out of 6133351
+ 362915 words of memory out of 5000000
+ 12231 multiletter control sequences out of 15000+600000
+ 26310 words of font info for 134 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 31i,16n,43p,1971b,446s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 31i,16n,43p,1977b,446s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
 /usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
@@ -831,13 +840,11 @@ texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2016/te
 xmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2016/texm
 f-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2016/texmf-
 dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2016/texmf-di
-st/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2016/texmf-dist
-/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2016/texmf-dist/f
-onts/type1/public/cm-super/sftt1200.pfb>
-Output written on JSSAM.pdf (15 pages, 548353 bytes).
+st/fonts/type1/public/cm-super/sfti1000.pfb>
+Output written on JSSAM_Blind.pdf (15 pages, 493150 bytes).
 PDF statistics:
- 421 PDF objects out of 1000 (max. 8388607)
- 363 compressed objects within 4 object streams
+ 411 PDF objects out of 1000 (max. 8388607)
+ 355 compressed objects within 4 object streams
  78 named destinations out of 1000 (max. 500000)
- 22743 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 21719 words of extra memory for PDF output out of 24883 (max. 10000000)
 

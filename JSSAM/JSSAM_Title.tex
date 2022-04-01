@@ -1,0 +1,80 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{float} 
+
+%\usepackage{arxiv}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{lipsum}
+\usepackage{fancyhdr}       % header
+\usepackage{graphicx}       % graphics
+\graphicspath{{media/}}     % organize your images and other figures under media/ folder
+
+%Header
+%\pagestyle{fancy}
+%\thispagestyle{empty}
+%\rhead{ \textit{ }} 
+\oddsidemargin=0in
+\evensidemargin=0in
+\topmargin=0in
+\headheight=0in 
+\headsep=0in 
+\textheight=9in 
+\textwidth=6.5in
+
+% Update your Headers here
+% \fancyhead[LO]{Running Title for Header}
+%\fancyhead[LO]{Scherting et al.} % Firstauthor et al. if more than 2 - must use \documentclass[twoside]{article}
+
+
+
+  
+%% Title
+\title{Bayesian data integration for small area estimation of pathogen prevalence dynamics from pooled and individual data}
+
+\author{
+  Braden Scherting \\
+  Dept. Mathematical Sciences \\
+  Montana State University \\
+  MT, USA \\
+  \texttt{bradenscherting@montana.edu} \\
+\\
+  Alison Peel \\
+  Centre for Planetary Health and Food Security \\
+  Griffith University \\
+  Queensland, AU\\
+\\
+  Raina Plowright \\
+  Dept. Microbiology and Immunology \\
+  Montana State University \\
+  MT, USA\\
+\\
+  Andrew Hoegh \\
+  Dept. Mathematical Sciences \\
+  Montana State University \\
+  MT, USA \\}
+
+
+\begin{document}
+\maketitle
+
+
+\begin{abstract}
+Estimating the prevalence of a disease is necessary for evaluating and mitigating risks of its transmission within or between populations. Estimates that consider how prevalence changes with time provide more information about these risks but are difficult to obtain due to the necessary survey intensity and commensurate testing costs. We propose pooling and jointly testing multiple samples to reduce testing costs and use a novel nonparametric, hierarchical Bayesian data integration model to infer population prevalence from the pooled test results. This approach is shown to reduce uncertainty compared to individual testing at the same budget and to produce similar estimates compared to individual testing at a much higher budget through three synthetic studies and two case studies of natural infection data. Furthermore, the data integration procedure enables estimates of prevalence dynamics for sub-populations of the study through small area estimation by combining information from pooled and individual data.\\
+\\
+{\bf Keywords:} small area estimation, survey methods, Bayesian methods, time series, Gaussian process
+\end{abstract}
+
+
+\end{document}
