@@ -315,33 +315,33 @@ counts <- tibble(counts = as.numeric(t(indiv_counts)),
 ###### analyze hierarchical
 ################################################
 
-tic()
-fit5 <- stan("stan_files/SIM_dataintegrate.stan",
-             data = list(N_indiv = N * num_groups,
-                         N_pool = N,
-                         N_pred = length(tnew),
-                         time_int = c(rep(obs_times, each = num_groups),obs_times, tnew),
-                         k = c(rep(num_reps, N * num_groups), rep(k, N)),
-                         y = c(counts, pool_counts),
-                         ig_alpha = 7.3,
-                         ig_beta = 675.2,
-                         num_group = num_groups,
-                         group = rep(1:num_groups, N),
-                         pool_size = m),
-             control = list(adapt_delta = 0.9),
-             seed = my_seed)
-toc()
-
-save(fit5, file = "integrate.RData")
-
-launch_shinystan(fit5)
+# tic()
+# fit5 <- stan("stan_files/SIM_dataintegrate.stan",
+#              data = list(N_indiv = N * num_groups,
+#                          N_pool = N,
+#                          N_pred = length(tnew),
+#                          time_int = c(rep(obs_times, each = num_groups),obs_times, tnew),
+#                          k = c(rep(num_reps, N * num_groups), rep(k, N)),
+#                          y = c(counts, pool_counts),
+#                          ig_alpha = 7.3,
+#                          ig_beta = 675.2,
+#                          num_group = num_groups,
+#                          group = rep(1:num_groups, N),
+#                          pool_size = m),
+#              control = list(adapt_delta = 0.9),
+#              seed = my_seed)
+# toc()
+# 
+# save(fit5, file = "integrate.RData")
+load("integrate.RData")
+# launch_shinystan(fit5)
 print(fit5, pars=c("elleq", "sigma", "mu", "mu_group"), probs=c(0.025, 0.975))
 zzz5 <- extract(fit5)$z
 out_indiv <- tibble(t = c(rep(obs_times, each = num_groups), obs_times, tnew),
                     group_ids = c(rep(paste('group', 1:5), length(obs_times)), 
                                   rep('overall', length(obs_times)), 
                                   rep('overall', length(tnew))),
-                    median = pnorm(apply(zzz5[1:4000,], 2, median)),
+                    mean = pnorm(apply(zzz5[1:4000,], 2, mean)),
                     lower = pnorm(apply(zzz5[1:4000,], 2, quantile, prob=0.025)),
                     uper = pnorm(apply(zzz5[1:4000,], 2, quantile, prob=0.975)))
 
@@ -366,6 +366,9 @@ mu_data5 <- tibble(x=t,y=c(pnorm(drop(eta) + mu[5])),group_ids = rep(c('group 5'
 
 rug_data <- tibble(t = rep(obs_times, 6), group_ids = rep(c(paste('group', 1:5), 'overall'), each = length(obs_times))) 
 
+pdf(file = "JSSAM/Figure5.pdf",   # The directory you want to save the file in
+    width = 8, # The width of the plot in inches
+    height = 6)
 out_indiv %>% ggplot() +
   geom_ribbon(aes(x=t, ymin=lower, ymax=uper), fill='blue', alpha=0.25) +
   geom_line(aes(x=t, y=y), color='black', data = mu_data, linetype=3) + theme_bw() +
@@ -374,11 +377,12 @@ out_indiv %>% ggplot() +
   geom_line(aes(x=t, y=y), color='black', data = mu_data3, linetype=3) +
   geom_line(aes(x=t, y=y), color='black', data = mu_data4, linetype=3) +
   geom_line(aes(x=t, y=y), color='black', data = mu_data5, linetype=3) +
-  facet_wrap(~group_ids) + geom_line(data = out_indiv, aes(x=t, y=median)) +
+  facet_wrap(~group_ids) + geom_line(data = out_indiv, aes(x=t, y=mean)) +
   geom_point(data=indiv_obs, aes(x=time, y=counts), shape=4) +
-  ylim(0,.5) + geom_rug(aes(x = t), data = rug_data) + ylab("Prevalence") +
+  ylim(0,.3) + geom_rug(aes(x = t), data = rug_data) + ylab("Prevalence") +
   xlab('Days') + ggtitle('Synthetic study 3')
 
+dev.off()
 # plot(fit5, pars = c('mu', 'mu_group')) + 
 #   geom_point(y =1 ,x =mu[5] , size = 3, pch = 23, fill = 'blue') +
 #   geom_point(y =2 ,x =mu[4] , size = 3, pch = 23, fill = 'blue') +

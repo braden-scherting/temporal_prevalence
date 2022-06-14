@@ -54,42 +54,42 @@ for (i in 1:N){
   pool_counts[i] <- sum(pools > 0)
 }
 
-fit <- stan("stan_files/SIMpooled.stan", 
+fit <- stan("stan_files/SIMpooled.stan",
             data = list(N1 = N,
                         N2 = length(tnew),
                         time_int = c(obs_times, tnew),
                         k = k,
                         m = m,
-                        y = pool_counts, 
+                        y = pool_counts,
                         ig_alpha = 7.3,
-                        ig_beta = 675.2), 
+                        ig_beta = 675.2),
             control = list(adapt_delta = 0.9),
             iter = 3000, warmup = 1000,
             seed = my_seed)
 
 # init = list(list(elleq=10), list(elleq=11), list(elleq=12), list(elleq=13)),
 
-fit2 <- stan("stan_files/SIMindiv.stan", 
-             data = list(N1 = N,
-                         N2 = length(tnew),
-                         time_int = c(obs_times, tnew),
-                         k = k,
-                         y = indiv_obs_k, 
-                         ig_alpha = 7.3,
-                         ig_beta = 675.2), 
-             control = list(adapt_delta = 0.9),
-             seed = my_seed)
+# fit2 <- stan("stan_files/SIMindiv.stan", 
+#              data = list(N1 = N,
+#                          N2 = length(tnew),
+#                          time_int = c(obs_times, tnew),
+#                          k = k,
+#                          y = indiv_obs_k, 
+#                          ig_alpha = 7.3,
+#                          ig_beta = 675.2), 
+#              control = list(adapt_delta = 0.9),
+#              seed = my_seed)
 
-fit3 <- stan("stan_files/SIMindiv.stan", 
-             data = list(N1 = N,
-                         N2 = length(tnew),
-                         time_int = c(obs_times, tnew),
-                         k = k * m,
-                         y = rowSums(indiv_counts), 
-                         ig_alpha = 7.3,
-                         ig_beta = 675.2), 
-             control = list(adapt_delta = 0.9),
-             seed = my_seed)
+# fit3 <- stan("stan_files/SIMindiv.stan", 
+#              data = list(N1 = N,
+#                          N2 = length(tnew),
+#                          time_int = c(obs_times, tnew),
+#                          k = k * m,
+#                          y = rowSums(indiv_counts), 
+#                          ig_alpha = 7.3,
+#                          ig_beta = 675.2), 
+#              control = list(adapt_delta = 0.9),
+#              seed = my_seed)
 
 # init = list(list(elleq=10), list(elleq=11), list(elleq=12), list(elleq=13)),
 
@@ -102,17 +102,17 @@ zzz2 <- extract(fit2)$z
 zzz3 <- extract(fit3)$z
 
 out_pool <- tibble(t = c(obs_times, tnew),
-                   median = pnorm(apply(zzz[1:8000,], 2, median)),
+                   mean = pnorm(apply(zzz[1:8000,], 2, mean)),
                    lower = pnorm(apply(zzz[1:8000,], 2, quantile, prob=0.025)),
                    uper = pnorm(apply(zzz[1:8000,], 2, quantile, prob=0.975)))
 
 out_indiv <- tibble(t = c(obs_times, tnew),
-                    median = pnorm(apply(zzz2[1:4000,], 2, median)),
+                    mean = pnorm(apply(zzz2[1:4000,], 2, mean)),
                     lower = pnorm(apply(zzz2[1:4000,], 2, quantile, prob=0.025)),
                     uper = pnorm(apply(zzz2[1:4000,], 2, quantile, prob=0.975)))
 
 out_indiv_km <- tibble(t = c(obs_times, tnew),
-                    median = pnorm(apply(zzz3[1:4000,], 2, median)),
+                    mean = pnorm(apply(zzz3[1:4000,], 2, mean)),
                     lower = pnorm(apply(zzz3[1:4000,], 2, quantile, prob=0.025)),
                     uper = pnorm(apply(zzz3[1:4000,], 2, quantile, prob=0.975)))
 
