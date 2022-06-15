@@ -1,0 +1,229 @@
+---
+title: "Pictures"
+author: "Braden Scherting"
+date: "Last updated: 12 September 2021"
+output: pdf_document
+classoption: landscape
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(ggpubr)
+library(lubridate)
+```
+\newpage
+## Figure 1: 
+```{r, echo=F, message=F, fig.width=10, fig.height=5.5}
+sim1 <- readRDS("SIMpanel1_370119")
+sim2 <- readRDS("SIMpanel_489713")
+
+simplot1 <- ggplot() +
+  geom_ribbon(data = sim1[[2]], 
+              aes(x = t, ymin = lower, ymax = uper, fill='m=1*', color='m=1*', alpha="m=1*"), 
+              linetype=0, size=0.25) + 
+  geom_ribbon(data = sim1[[6]], 
+              aes(x = t, ymin = lower, ymax = uper, fill='m=1', color='m=1', alpha="m=1"), 
+              linetype=0,size=0.25) +
+  geom_ribbon(data = sim1[[1]], 
+              aes(x = t, ymin = lower, ymax = uper, fill='m=3', color='m=3', alpha="m=3"), 
+              linetype=0, size=0.25) + 
+  geom_ribbon(data = sim1[[1]], 
+              aes(x = t, ymin = lower, ymax = uper, fill='True', color='True', alpha="True"), 
+              linetype=0, alpha=.0, size=0.25) + 
+  geom_line(data=sim1[[5]], aes(x=t, y=y, color='True', linetype="True"), 
+            size=.75) + 
+  geom_line(data=sim1[[2]], aes(x=t, y=median, color='m=1*', linetype="m=1*"),
+            size=.5) + 
+  geom_line(data=sim1[[6]], aes(x=t, y=median, color='m=1', linetype="m=1"),
+            size=.5) + 
+  geom_line(data=sim1[[1]], aes(x=t, y=median, color='m=3', linetype="m=3"),
+            size=.5) + 
+  geom_rug(data = sim1[[3]], aes(x = t)) +
+  scale_fill_manual(values = c("m=1*" = 'blue', "m=3" = 'orangered', "True"='transparent', "m=1" = 'black'),
+                     breaks = c("True", "m=1*", "m=1", "m=3")) + 
+  scale_color_manual(values = c("m=1*" = 'blue', "m=3" = 'red3', "True"='black', "m=1" = 'black'),
+                     breaks = c("True", "m=1*", "m=1", "m=3")) + 
+  scale_linetype_manual(values = c("m=1*" = 1, "m=3" = 1, "True"=3, "m=1" = 1),
+                     breaks = c("True", "m=1*", "m=1", "m=3")) +
+  scale_alpha_manual(values = c("m=1*" = 0.1, "m=3" = 0.2, "True"= 0, "m=1" = 0.2),
+                     breaks = c("True", "m=1*", "m=1", "m=3")) +
+  labs(color = "", fill="", linetype="", alpha="") + theme_bw() + 
+  xlab("") + ylab("") + ylim(0,0.4) + theme(legend.key.size=unit(1.5,"lines")) + 
+  ggtitle("Synthetic study 1") +
+  theme(plot.title = element_text(size = 12))
+
+
+simplot2 <- ggplot() +
+  geom_ribbon(data = sim2[[2]], 
+              aes(x = t, ymin = lower, ymax = uper, fill='m=1*', color='m=1*', alpha="m=1*"), 
+              linetype=0, size=0.25) + 
+  geom_ribbon(data = sim2[[6]], 
+              aes(x = t, ymin = lower, ymax = uper, fill='m=1', color='m=1', alpha="m=1"), 
+              linetype=0,size=0.25) +
+  geom_ribbon(data = sim2[[1]], 
+              aes(x = t, ymin = lower, ymax = uper, fill='m=10', color='m=10', alpha="m=10"), 
+              linetype=0, size=0.25) + 
+  geom_ribbon(data = sim2[[1]], 
+              aes(x = t, ymin = lower, ymax = uper, fill='True', color='True', alpha="True"), 
+              linetype=0, size=0.25) + 
+  geom_line(data=sim2[[5]], aes(x=t, y=y, color='True', linetype="True"), 
+            size=.75) + 
+  geom_line(data=sim2[[2]], aes(x=t, y=median, color='m=1*', linetype="m=1*"),
+            size=.5) + 
+  geom_line(data=sim2[[6]], aes(x=t, y=median, color='m=1', linetype="m=1"),
+            size=.5) + 
+  geom_line(data=sim2[[1]], aes(x=t, y=median, color='m=10', linetype="m=10"),
+            size=.5) + 
+  geom_rug(data = sim2[[3]], aes(x = t)) +
+  scale_fill_manual(values = c("m=1*" = 'blue', "m=10" = 'orangered', "True"='transparent', "m=1" = 'black'),
+                     breaks = c("True", "m=1*", "m=1", "m=10")) + 
+  scale_color_manual(values = c("m=1*" = 'blue', "m=10" = 'red3', "True"='black', "m=1" = 'black'),
+                     breaks = c("True", "m=1*", "m=1", "m=10")) + 
+  scale_linetype_manual(values = c("m=1*" = 1, "m=10" = 1, "True"=3, "m=1" = 1),
+                     breaks = c("True", "m=1*", "m=1", "m=10")) + 
+  scale_alpha_manual(values = c("m=1*" = 0.1, "m=10" = 0.2, "True"= 0, "m=1" = 0.2),
+                     breaks = c("True", "m=1*", "m=1", "m=10")) +
+  labs(color = "", fill="", linetype="", alpha="") + theme_bw() + 
+  xlab("") + ylab("") + ylim(0,0.045) + theme(legend.key.size=unit(1.5,"lines")) +
+  ggtitle("Synthetic study 2", ) + theme(plot.title = element_text(size = 12))
+
+ggarrange(simplot1, simplot2, nrow=2) %>% 
+  annotate_figure(left = text_grob("Prevalence", size=13, rot = 90), 
+                  bottom = text_grob("Days", size=13), 
+                  top=text_grob("Pooled samples recover true prevalence", size=17))
+  
+```
+\begin{center}
+Figure 1: Estimated median curves and 95\% credible regions are provided for each synthetic study under each sampling strategy. Rug marks indicate when sampling occurred. In both cases, the pooled estimates closely track true, unobserved prevalence (black, dotted) and $m=1$ estimates (black, solid). Estimates from limited individual sampling (blue, solid) are less precise and fail to accurately recover true prevalence. 
+\end{center}
+
+\newpage
+
+## Figure 2: BATS
+```{r, fig.cap="orh here?", echo=F, message=F, fig.width=10}
+bat_dat <- read_csv("my_data/batDataAggregated.csv")[23:42,] %>% mutate(date = mdy(date))
+bat_out <- readRDS("bat_out_9052")
+
+bat_3 <- bat_out[[1]] %>% mutate(dt = as.Date(x, origin))
+bat_5 <- bat_out[[2]] %>% mutate(dt = as.Date(x, origin))
+bat_all <- bat_out[[3]] %>% mutate(dt = as.Date(x, origin))
+bat_limited <- bat_out[[4]] %>% mutate(dt = as.Date(x, origin))
+
+ggplot() + 
+  geom_ribbon(data=bat_5, aes(x=dt, ymin=lower, ymax=upper, fill='m=5'), 
+              linetype=2, alpha=.2, color='darkgreen', size=0.5) +
+  geom_ribbon(data=bat_limited, aes(x=dt, ymin=lower, ymax=upper, fill='m=1*'), 
+              linetype=2, alpha=.1, color='blue', size=0.5) +
+  geom_ribbon(data=bat_3, aes(x=dt, ymin=lower, ymax=upper, fill='m=3'), 
+              linetype=2, alpha=.125, color='red', size=0.5) +
+  geom_ribbon(data=bat_all, aes(x=dt, ymin=lower, ymax=upper, fill='m=1'), 
+              linetype=2, alpha=0.1, color='black', size=0.5) + 
+  geom_line(data=bat_limited, aes(x=dt, y=median, color='m=1*'), linetype=1, size=.75) + 
+  geom_line(data=bat_5, aes(x=dt, y=median, color='m=5'), linetype=1, 
+            size=.75) + 
+  geom_line(data=bat_3, aes(x=dt, y=median, color='m=3'), linetype=1, 
+            size=.75) + 
+  geom_line(data=bat_all, aes(x=dt, y=median, color='m=1'), linetype=1, size=.75) +
+  geom_point(data=bat_dat, aes(x=date, y=(n_pos / n_tests), shape="Obs. frequency"), size=2) + 
+  scale_fill_manual(values = c("m=3" = 'red', "m=5" = 'darkgreen', 
+                               "m=1" = 'black', "m=1*" = 'blue'),
+                     breaks = c("m=1*", "m=1", "m=3", "m=5")) + 
+  scale_shape_manual(values = c("Obs. frequency" = 3), breaks=c("Obs. frequency")) + 
+  scale_color_manual(values = c("m=1*" = 'blue', "m=3" = 'red', "m=5" = 'darkgreen', "m=1" = 'black'),
+                     breaks = c("m=1*", "m=1", "m=3", "m=5")) + 
+  labs(color = "", fill="", shape="") + theme_bw() + ylim(0,0.4) + 
+  xlab("Date") + ylab("Prevalence") + ggtitle("Prevalence among Congo Basin bats") +
+  theme(legend.key.size=unit(1.5,"lines"))
+```
+\begin{center}
+Figure 2: Prevalence among Congo Basin bats considered in this study is estimated in four ways; medians and 95\% credible regions are displayed for each. Universal individual testing estimates (black) and pooled estimates (red, green) exhibit high visual similarity; pooling introduces slight, additional uncertainty. Estimates from limited individual testing (blue) capture the same overall trend but deviate from other estimates and possess more uncertainty throughout. 
+\end{center}
+\newpage
+
+## Figure 3: NOTRE DAME
+```{r, echo=F, message=F, fig.width=10}
+nd_dat <- read_csv("my_data/ND_data.csv") %>% filter(surveil_total > 0) %>% mutate(dt = mdy(date))
+nd_out <- readRDS("nd_out_5784")
+
+nd_5 <- nd_out[[1]] %>% mutate(dt = as.Date(x, origin))
+nd_10 <- nd_out[[2]] %>% mutate(dt = as.Date(x, origin))
+nd_all <- nd_out[[3]] %>% mutate(dt = as.Date(x, origin))
+nd_limited <- nd_out[[4]] %>% mutate(dt = as.Date(x, origin))
+
+ggplot() + 
+  geom_ribbon(data=nd_10, aes(x=dt, ymin=lower, ymax=upper, fill='m=10'), 
+              linetype=2, alpha=.2, color='darkgreen', size=0.5) +
+  geom_ribbon(data=nd_limited, aes(x=dt, ymin=lower, ymax=upper, fill='m=1*'), 
+              linetype=2, alpha=.1, color='blue', size=0.5) +
+  geom_ribbon(data=nd_5, aes(x=dt, ymin=lower, ymax=upper, fill='m=5'), 
+              linetype=2, alpha=.125, color='red', size=0.5) +
+  geom_ribbon(data=nd_all, aes(x=dt, ymin=lower, ymax=upper, fill='m=1'), 
+              linetype=2, alpha=0.1, color='black', size=0.5) + 
+  geom_line(data=nd_limited, aes(x=dt, y=median, color='m=1*')) + 
+  geom_line(data=nd_5, aes(x=dt, y=median, color='m=5'), linetype=1, 
+            size=.75) + 
+  geom_line(data=nd_10, aes(x=dt, y=median, color='m=10'), linetype=1, 
+            size=.75) + 
+  geom_line(data=nd_all, aes(x=dt, y=median, color='m=1'), linetype=1, size=.75) + 
+  geom_line(data=nd_limited, aes(x=dt, y=median, color='m=1*'), linetype=1, size=.75) + 
+  geom_point(data=nd_dat, aes(x=dt, y=(surveil_pos / surveil_total), shape="Obs. frequency"), size=.75) + 
+  scale_fill_manual(values = c("m=1*" = 'blue', "m=5" = 'red', "m=10" = 'darkgreen', 
+                               "m=1" = 'black'),
+                     breaks = c("m=1*", "m=1", "m=5", "m=10")) + 
+  scale_color_manual(values = c("m=5" = 'red', "m=10" = 'darkgreen', 
+                                "m=1" = 'black', "m=1*" = 'blue'),
+                     breaks = c("m=1*", "m=1", "m=5", "m=10")) + 
+  scale_shape_manual(values = c("Obs. frequency" = 3), breaks=c("Obs. frequency")) + 
+  labs(color = "", fill="", shape="") + theme_bw() + ylim(0,.05) + 
+  xlab("Date") + ylab("Prevalence") + ggtitle("Notre Dame COVID-19 asymptomatic surveillance") +
+  theme(legend.key.size=unit(1.5,"lines"))
+```
+\begin{center}
+Figure 3: Four estimated median prevalence curves and associated 95\% credible regions of prevalence among asymptomatic individuals at Notre Dame are displayed. For most time points, universal individual (black) and pooled (red, green) estimates are visually indistinguishable. Estimates from limited individual testing (blue) are, again, deviant and more uncertain, on average. 
+\end{center}
+
+\newpage
+
+## Figure 4: SAMPLING VARIABILITY
+```{r, fig.width=10, fig.height=5.5}
+# 
+
+sv_pool <- readRDS("BATsampvar2_187") %>% mutate(dt = as.Date(t, origin))
+sv_indiv <- readRDS("BATsampvarIndiv692") %>% mutate(dt = as.Date(t, origin))
+
+sv1 <- ggplot() + 
+  geom_line(data=sv_pool, aes(x=dt, y=med, group=lab, color='m=3'), alpha=0.25) +
+  geom_line(data=bat_all, aes(x=dt, y=median, color='m=1')) + 
+  geom_line(data=bat_all, aes(x=dt, y=lower), color='black', linetype=3) + 
+  geom_line(data=bat_all, aes(x=dt, y=upper), color='black', linetype=3) +
+  geom_point(data=bat_dat, aes(x=date, y=(n_pos / n_tests))) + 
+  scale_color_manual(values = c('m=1' = 'black', 'm=3' = 'red')) +
+  labs(color = "") +
+  ylim(0,0.35) + theme_bw() +
+  xlab("") + 
+  ylab("") + ggtitle("Pooled") +
+  theme(plot.title = element_text(size = 12))
+
+sv2 <- ggplot() + 
+  geom_line(data=sv_indiv, aes(x=dt, y=med, group=lab, color='m=1*'), alpha=0.25) +
+  geom_line(data=bat_all, aes(x=dt, y=median, color='m=1')) + 
+  geom_line(data=bat_all, aes(x=dt, y=lower), color='black', linetype=3) + 
+  geom_line(data=bat_all, aes(x=dt, y=upper), color='black', linetype=3) +
+  geom_point(data=bat_dat, aes(x=date, y=(n_pos / n_tests))) + 
+  scale_color_manual(values = c('m=1' = 'black', 'm=1*' = 'red')) +
+  labs(color = "") +
+  ylim(0,0.35) + theme_bw() +
+  xlab("Date") + 
+  ylab("") + ggtitle("Individual") +
+  theme(plot.title = element_text(size = 12))
+  
+
+ggarrange(sv1, sv2, nrow = 2) %>% 
+  annotate_figure(left = "Prevalence", top = text_grob("Sampling variability in study design", size = 15))
+```
+\begin{center}
+Figure 4: Estimated median curves for 25 resampled pool configurations and 25 subsampled individual configurations are displayed over the estimated median from all available date and corresponding 95\% credible region (identical to Fig.2, black). Pooled estimates are relatively stable under reconfiguration, but estimates from subsampled individual data are quite sensitive to the subsampling procedure. 
+\end{center}
+
+
