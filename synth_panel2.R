@@ -97,17 +97,17 @@ zzz2 <- extract(fit2)$z
 zzz3 <- extract(fit3)$z
 
 out_pool <- tibble(t = c(obs_times),
-                   median = pnorm(apply(zzz[1:8000,], 2, median)),
+                   mean = pnorm(apply(zzz[1:8000,], 2, mean)),
                    lower = pnorm(apply(zzz[1:8000,], 2, quantile, prob=0.025)),
                    uper = pnorm(apply(zzz[1:8000,], 2, quantile, prob=0.975)))
 
 out_indiv <- tibble(t = c(obs_times),
-                    median = pnorm(apply(zzz2[1:4000,], 2, median)),
+                    mean = pnorm(apply(zzz2[1:4000,], 2, mean)),
                     lower = pnorm(apply(zzz2[1:4000,], 2, quantile, prob=0.025)),
                     uper = pnorm(apply(zzz2[1:4000,], 2, quantile, prob=0.975)))
 
 out_indiv_km <- tibble(t = c(obs_times),
-                    median = pnorm(apply(zzz3[1:4000,], 2, median)),
+                    mean = pnorm(apply(zzz3[1:4000,], 2, mean)),
                     lower = pnorm(apply(zzz3[1:4000,], 2, quantile, prob=0.025)),
                     uper = pnorm(apply(zzz3[1:4000,], 2, quantile, prob=0.975)))
 
@@ -118,15 +118,15 @@ indiv_obs <- tibble(t = obs_times,
 indiv_obs_km <- tibble(t = obs_times,
                     freq = rowSums(indiv_counts) / (k*m))
 
-# saveRDS(list(out_pool, out_indiv, pool_obs, indiv_obs, sim_df, out_indiv_km, 
-#              indiv_obs_km), "SIMpanel_489713")
+saveRDS(list(out_pool, out_indiv, pool_obs, indiv_obs, sim_df, out_indiv_km,
+             indiv_obs_km), "SIMpanel_489713")
 
-# my_list <- readRDS("SIMpanel_489713")
-# 
-# ggplot() + 
-#   geom_ribbon(data = my_list[[2]], aes(x=t, ymin=lower, ymax=uper), fill='blue', alpha=0.25) + 
-#   geom_ribbon(data = my_list[[1]], aes(x=t, ymin=lower, ymax=uper), fill='red', alpha=0.5) +
-#   geom_line(aes(x=t, y=pnorm(yprev)), color='black') + 
-#   geom_line(data = my_list[[2]], aes(x=t, y=median), color='black', linetype=2) +
-#   geom_line(data = my_list[[1]], aes(x=t, y=median), color='black', linetype=3) +
-#   ylim(0,0.06) + theme_classic() 
+my_list <- readRDS("SIMpanel_489713")
+
+ggplot() +
+  geom_ribbon(data = my_list[[2]], aes(x=t, ymin=lower, ymax=uper), fill='blue', alpha=0.25) +
+  geom_ribbon(data = my_list[[1]], aes(x=t, ymin=lower, ymax=uper), fill='red', alpha=0.5) +
+  geom_line(aes(x=t, y=pnorm(yprev)), color='black') +
+  geom_line(data = my_list[[2]], aes(x=t, y=mean), color='black', linetype=2) +
+  geom_line(data = my_list[[1]], aes(x=t, y=mean), color='black', linetype=3) +
+  ylim(0,0.06) + theme_classic()

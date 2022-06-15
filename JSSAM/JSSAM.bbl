@@ -1,0 +1,115 @@
+\begin{thebibliography}{10}
+
+\bibitem{plowright2017pathways}
+Raina~K Plowright, Colin~R Parrish, Hamish McCallum, Peter~J Hudson, Albert~I
+  Ko, Andrea~L Graham, and James~O Lloyd-Smith.
+\newblock Pathways to zoonotic spillover.
+\newblock {\em Nature Reviews Microbiology}, 15(8):502--510, 2017.
+
+\bibitem{becker2021ecological}
+Daniel Becker, Peggy Eby, Wyatt Madden, Alison Peel, and Raina Plowright.
+\newblock Ecological conditions experienced by bat reservoir hosts predict the
+  intensity of hendra virus excretion over space and time.
+\newblock {\em bioRxiv}, 2021.
+
+\bibitem{kuiken2005pathogen}
+Thijs Kuiken, Frederick~A Leighton, Ron~AM Fouchier, James~W LeDuc, Joseph
+  S~Malik Peiris, Alejandro Schudel, Klaus St{\"o}hr, and ADME Osterhaus.
+\newblock Pathogen surveillance in animals.
+\newblock {\em Science}, 309(5741):1680--1681, 2005.
+
+\bibitem{plowright2019sampling}
+Raina~K Plowright, Daniel~J Becker, Hamish McCallum, and Kezia~R Manlove.
+\newblock Sampling to elucidate the dynamics of infections in reservoir hosts.
+\newblock {\em Philosophical Transactions of the Royal Society B},
+  374(1782):20180336, 2019.
+
+\bibitem{garg2021evaluation}
+Jaya Garg, Vikramjeet Singh, Pranshu Pandey, Ashish Verma, Manodeep Sen, Anupam
+  Das, and Jyotsna Agarwal.
+\newblock Evaluation of sample pooling for diagnosis of {COVID}-19 by real
+  time-{PCR}: A resource-saving combat strategy.
+\newblock {\em Journal of medical virology}, 93(3):1526--1531, 2021.
+
+\bibitem{hoegh2021estimating}
+Andrew Hoegh, Alison Peel, Wyatt Madden, Manuel Ruiz-Aravena, Aaron Morris,
+  Alex Washburne, and Raina Plowright.
+\newblock Estimating viral prevalence with data integration for adaptive
+  two-phase pooled sampling.
+\newblock 2021.
+
+\bibitem{ghosh1994small}
+Malay Ghosh and JNK1278679 Rao.
+\newblock Small area estimation: an appraisal.
+\newblock {\em Statistical science}, 9(1):55--76, 1994.
+
+\bibitem{pfeffermann2013new}
+Danny Pfeffermann.
+\newblock New important developments in small area estimation.
+\newblock {\em Statistical Science}, 28(1):40--68, 2013.
+
+\bibitem{rao1994small}
+Jon~NK Rao and Mingyu Yu.
+\newblock Small-area estimation by combining time-series and cross-sectional
+  data.
+\newblock {\em Canadian Journal of Statistics}, 22(4):511--528, 1994.
+
+\bibitem{molina2014small}
+Isabel Molina, Balgobin Nandram, and JNK Rao.
+\newblock Small area estimation of general parameters with application to
+  poverty indicators: A hierarchical bayes approach.
+\newblock {\em The Annals of Applied Statistics}, 8(2):852--885, 2014.
+
+\bibitem{datta2011bayesian}
+Gauri~Sankar Datta, Malay Ghosh, R~Steorts, and J~Maples.
+\newblock Bayesian benchmarking with applications to small area estimation.
+\newblock {\em Test}, 20(3):574--588, 2011.
+
+\bibitem{kumakamba2021coronavirus}
+Charles Kumakamba, Fabien~R Niama, Francisca Muyembe, Jean-Vivien Mombouli,
+  Placide~Mbala Kingebeni, Rock~Aime Nina, Ipos~Ngay Lukusa, Gerard Bounga,
+  Frida N’Kawa, Cynthia~Goma Nkoua, et~al.
+\newblock Coronavirus surveillance in wildlife from two {Congo} basin countries
+  detects {RNA} of multiple species circulating in bats and rodents.
+\newblock {\em PloS one}, 16(6):e0236971, 2021.
+
+\bibitem{fox2021response}
+Mark~D Fox, David~C Bailey, Michael~D Seamon, and Marie~Lynn Miranda.
+\newblock Response to a {COVID}-19 outbreak on a university campus—{I}ndiana,
+  {A}ugust 2020.
+\newblock {\em Morbidity and Mortality Weekly Report}, 70(4):118, 2021.
+
+\bibitem{ndcovid}
+{University of Notre Dame}.
+\newblock Covid-19 protocols and policies: Fall 2020 data, 2021.
+
+\bibitem{colon2001estimating}
+Silvestre Col{\'o}n, Ganapati~P Patil, and Charles Taillie.
+\newblock Estimating prevalence using composites.
+\newblock {\em Environmental and Ecological Statistics}, 8(3):213--236, 2001.
+
+\bibitem{swallow1985group}
+William~H Swallow.
+\newblock Group testing for estimating infection rates and probabilities of
+  disease transmission.
+\newblock {\em Phytopathology (USA)}, 1985.
+
+\bibitem{reilly1996optimal}
+Marie Reilly.
+\newblock Optimal sampling strategies for two-stage studies.
+\newblock {\em American journal of epidemiology}, 143(1):92--100, 1996.
+
+\bibitem{carpenter2017stan}
+Bob Carpenter, Andrew Gelman, Matthew~D Hoffman, Daniel Lee, Ben Goodrich,
+  Michael Betancourt, Marcus Brubaker, Jiqiang Guo, Peter Li, and Allen
+  Riddell.
+\newblock Stan: A probabilistic programming language.
+\newblock {\em Journal of statistical software}, 76(1):1--32, 2017.
+
+\bibitem{filippone2013comparative}
+Maurizio Filippone, Mingjun Zhong, and Mark Girolami.
+\newblock A comparative evaluation of stochastic-based inference methods for
+  {G}aussian process models.
+\newblock {\em Machine Learning}, 93(1):93--114, 2013.
+
+\end{thebibliography}

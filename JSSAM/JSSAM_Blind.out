@@ -1,0 +1,23 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Data}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Case study: Congo Basin bats}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Case study: asymptomatic testing at Notre Dame}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Hypothetical pooling design}{section.2}% 5
+\BOOKMARK [1][-]{section.3}{Model Formulation}{}% 6
+\BOOKMARK [2][-]{subsection.3.1}{Population prevalence and pool probability}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.2}{Latent Gaussian process}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.3}{Sampling models}{section.3}% 9
+\BOOKMARK [3][-]{subsubsection.3.3.1}{General}{subsection.3.3}% 10
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Ideal}{subsection.3.3}% 11
+\BOOKMARK [3][-]{subsubsection.3.3.3}{Efficient general}{subsection.3.3}% 12
+\BOOKMARK [2][-]{subsection.3.4}{Hierarchical pooling specification}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.5}{Hierarchical data integration specification}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.6}{Priors and computation}{section.3}% 15
+\BOOKMARK [1][-]{section.4}{Synthetic studies}{}% 16
+\BOOKMARK [1][-]{section.5}{Results}{}% 17
+\BOOKMARK [2][-]{subsection.5.1}{Case study 1: Congo Basin bats}{section.5}% 18
+\BOOKMARK [2][-]{subsection.5.2}{Case study 2: Congo Basin bats data integration}{section.5}% 19
+\BOOKMARK [2][-]{subsection.5.3}{Case study 3: Asymptomatic testing at Notre Dame}{section.5}% 20
+\BOOKMARK [2][-]{subsection.5.4}{Sampling variability}{section.5}% 21
+\BOOKMARK [2][-]{subsection.5.5}{Conclusion}{section.5}% 22
+\BOOKMARK [1][-]{section.6}{Discussion}{}% 23
