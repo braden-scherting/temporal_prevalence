@@ -7,7 +7,7 @@ options(mc.cores = 4)
 my_seed <- 5784
 set.seed(my_seed)
 
-dat <- read_csv("my_data/ND_data.csv") %>% filter(surveil_total > 0) 
+dat <- read.csv("my_data/ND_data.csv") %>% filter(surveil_total > 0) 
 
 t <- mdy(dat$date) %>% as.integer()
 N <- length(dat$surveil_pos)
@@ -69,12 +69,12 @@ pooled5 <- stan("stan_files/NDpooled.stan",
                                 y = y1,
                                 ig_alpha = 11.8, 
                                 ig_beta = 297.7),
-                    iter = 1000, warmup = 500, chains=4, 
+                    chains=4, 
                     control = list(adapt_delta = 0.9, stepsize = 1, max_treedepth = 10),
                 seed = my_seed) 
 
 z_vals5 <- extract(pooled5)$z
-out5 <- tibble(median = pnorm(apply(z_vals5[1:2000,], 2, median)),
+out5 <- tibble(mean = pnorm(apply(z_vals5[1:2000,], 2, mean)),
                lower =  pnorm(apply(z_vals5[1:2000,], 2, quantile, prob = .025)),
                upper =  pnorm(apply(z_vals5[1:2000,], 2, quantile, prob = .975)), 
                x = t)
@@ -88,13 +88,13 @@ pooled10 <- stan("stan_files/NDpooled.stan",
                                 y = y2,
                                 ig_alpha = 11.8, 
                                 ig_beta = 297.7),
-                    iter = 1000, warmup = 500, chains=4, 
+                    chains=4, 
                     init = list(list(elleq=20), list(elleq=21), list(elleq=22), list(elleq=23)),
                     control = list(adapt_delta = 0.9, max_treedepth = 10),
                  seed = my_seed) 
 
 z_vals10 <- extract(pooled10)$z
-out10 <- tibble(median = pnorm(apply(z_vals10[1:1500,], 2, median)),
+out10 <- tibble(mean = pnorm(apply(z_vals10[1:1500,], 2, mean)),
                lower =  pnorm(apply(z_vals10[1:1500,], 2, quantile, prob = .025)),
                upper =  pnorm(apply(z_vals10[1:1500,], 2, quantile, prob = .975)), 
                x = t)
@@ -106,12 +106,12 @@ indivALL <- stan("stan_files/NDindiv.stan",
                              time_int = t,
                              ig_alpha = 11.8, 
                              ig_beta = 297.7),
-                   iter = 1000, warmup = 500, chains=4,
+                   chains=4,
                    control = list(adapt_delta=0.8), 
                    seed = my_seed)
 
 z_valsALL <- extract(indivALL)$z
-outALL <- tibble(median = pnorm(apply(z_valsALL[1:2000,], 2, median)),
+outALL <- tibble(mean = pnorm(apply(z_valsALL[1:2000,], 2, mean)),
                lower =  pnorm(apply(z_valsALL[1:2000,], 2, quantile, prob = .025)),
                upper =  pnorm(apply(z_valsALL[1:2000,], 2, quantile, prob = .975)), 
                x = t)
@@ -140,12 +140,12 @@ print(indivLIMITED, pars=c("elleq", "sigma", "mu"), probs=c(0.025, 0.975))
 
 
 z_valsLIMITED <- extract(indivLIMITED)$z
-outLIMITED <- tibble(median = pnorm(apply(z_valsLIMITED[1:3000,], 2, median)),
+outLIMITED <- tibble(mean = pnorm(apply(z_valsLIMITED[1:3000,], 2, mean)),
                lower =  pnorm(apply(z_valsLIMITED[1:3000,], 2, quantile, prob = .025)),
                upper =  pnorm(apply(z_valsLIMITED[1:3000,], 2, quantile, prob = .975)), 
                x = t)
 
-# nd_out <- saveRDS(list(out5, out10, outALL, outLIMITED), file = "nd_out_5784")
+nd_out <- saveRDS(list(out5, out10, outALL, outLIMITED), file = "nd_out_5784")
 
 ggplot() + 
   geom_point(aes(x=t, y=(dat$surveil_pos / dat$surveil_total))) + theme_bw() +
@@ -155,8 +155,8 @@ ggplot() +
               fill='red', alpha=.5) +
   geom_ribbon(data=outALL, aes(x=x, ymin=lower, ymax=upper), linetype=1, 
               color='black', alpha=0.) +
-  geom_line(data=outALL, aes(x=x, y=median), linetype=1, color='black') +
-  geom_line(data=out10, aes(x=x, y=median), linetype=1, color='red') + 
-  geom_line(data=out5, aes(x=x, y=median), linetype=2, color='red') +
+  geom_line(data=outALL, aes(x=x, y=mean), linetype=1, color='black') +
+  geom_line(data=out10, aes(x=x, y=mean), linetype=1, color='red') + 
+  geom_line(data=out5, aes(x=x, y=mean), linetype=2, color='red') +
   ylim(0,0.06) + theme_bw()
 

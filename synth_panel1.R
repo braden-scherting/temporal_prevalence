@@ -69,27 +69,27 @@ fit <- stan("stan_files/SIMpooled.stan",
 
 # init = list(list(elleq=10), list(elleq=11), list(elleq=12), list(elleq=13)),
 
-# fit2 <- stan("stan_files/SIMindiv.stan", 
-#              data = list(N1 = N,
-#                          N2 = length(tnew),
-#                          time_int = c(obs_times, tnew),
-#                          k = k,
-#                          y = indiv_obs_k, 
-#                          ig_alpha = 7.3,
-#                          ig_beta = 675.2), 
-#              control = list(adapt_delta = 0.9),
-#              seed = my_seed)
+fit2 <- stan("stan_files/SIMindiv.stan",
+             data = list(N1 = N,
+                         N2 = length(tnew),
+                         time_int = c(obs_times, tnew),
+                         k = k,
+                         y = indiv_obs_k,
+                         ig_alpha = 7.3,
+                         ig_beta = 675.2),
+             control = list(adapt_delta = 0.9),
+             seed = my_seed)
 
-# fit3 <- stan("stan_files/SIMindiv.stan", 
-#              data = list(N1 = N,
-#                          N2 = length(tnew),
-#                          time_int = c(obs_times, tnew),
-#                          k = k * m,
-#                          y = rowSums(indiv_counts), 
-#                          ig_alpha = 7.3,
-#                          ig_beta = 675.2), 
-#              control = list(adapt_delta = 0.9),
-#              seed = my_seed)
+fit3 <- stan("stan_files/SIMindiv.stan",
+             data = list(N1 = N,
+                         N2 = length(tnew),
+                         time_int = c(obs_times, tnew),
+                         k = k * m,
+                         y = rowSums(indiv_counts),
+                         ig_alpha = 7.3,
+                         ig_beta = 675.2),
+             control = list(adapt_delta = 0.9),
+             seed = my_seed)
 
 # init = list(list(elleq=10), list(elleq=11), list(elleq=12), list(elleq=13)),
 
@@ -131,8 +131,19 @@ ggplot() +
   geom_ribbon(data = my_list[[2]], aes(x=t, ymin=lower, ymax=uper), fill='blue', alpha=0.25) +
   geom_ribbon(data = my_list[[1]], aes(x=t, ymin=lower, ymax=uper), fill='red', alpha=0.5) +
   geom_line(aes(x=t, y=pnorm(yprev)), color='black') + theme_classic() +
-  geom_line(data = my_list[[1]], aes(x=t, y=median), linetype=2) +
-  geom_line(data = my_list[[2]], aes(x=t, y=median), linetype=3) +
+  geom_line(data = my_list[[1]], aes(x=t, y=mean), linetype=2) +
+  geom_line(data = my_list[[2]], aes(x=t, y=mean), linetype=3) +
+  geom_point(data=my_list[[3]], aes(x=t, y=freq), shape=1) +
+  geom_point(data=my_list[[4]], aes(x=t, y=freq), shape=4) +
+  ylim(0,.5)
+
+
+ggplot() +
+  geom_ribbon(data = my_list[[2]], aes(x=t, ymin=lower, ymax=uper), fill='blue', alpha=0.25) +
+  geom_ribbon(data = my_list[[1]], aes(x=t, ymin=lower, ymax=uper), fill='red', alpha=0.5) +
+  geom_line(aes(x=t, y=pnorm(yprev)), color='black') + theme_classic() +
+  geom_line(data = my_list[[1]], aes(x=t, y=mean), linetype=2) +
+  geom_line(data = my_list[[2]], aes(x=t, y=mean), linetype=3) +
   geom_point(data=my_list[[3]], aes(x=t, y=freq), shape=1) +
   geom_point(data=my_list[[4]], aes(x=t, y=freq), shape=4) +
   ylim(0,.5)

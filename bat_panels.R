@@ -68,7 +68,7 @@ pooled3 <- stan("stan_files/BATpooled.stan",
             iter = 1200, chains=4,
             seed = my_seed * pool_sizes[1])
 z_vals3 <- extract(pooled3)$z
-out3 <- tibble(median = pnorm(apply(z_vals3[1:2400,], 2, median)),
+out3 <- tibble(mean = pnorm(apply(z_vals3[1:2400,], 2, mean)),
                lower =  pnorm(apply(z_vals3[1:2400,], 2, quantile, prob = .025)),
                upper =  pnorm(apply(z_vals3[1:2400,], 2, quantile, prob = .975)), 
                x = c(t,tnew))
@@ -86,7 +86,7 @@ pooled5 <- stan("stan_files/BATpooled.stan",
                 iter = 1200, chains=4,
                 seed = my_seed * pool_sizes[2])
 z_vals5 <- extract(pooled5)$z
-out5 <- tibble(median = pnorm(apply(z_vals5[1:2400,], 2, median)),
+out5 <- tibble(mean = pnorm(apply(z_vals5[1:2400,], 2, mean)),
                lower =  pnorm(apply(z_vals5[1:2400,], 2, quantile, prob = .025)),
                upper =  pnorm(apply(z_vals5[1:2400,], 2, quantile, prob = .975)), 
                x = c(t,tnew))
@@ -103,7 +103,7 @@ indivALL <- stan("stan_files/BATindiv.stan",
                      iter = 1200, chains=4,
                      seed = my_seed)
 z_valsALL <- extract(indivALL)$z
-outALL <- tibble(median = pnorm(apply(z_valsALL[1:2400,], 2, median)),
+outALL <- tibble(mean = pnorm(apply(z_valsALL[1:2400,], 2, mean)),
                      lower =  pnorm(apply(z_valsALL[1:2400,], 2, quantile, prob = .025)),
                      upper =  pnorm(apply(z_valsALL[1:2400,], 2, quantile, prob = .975)), 
                      x = c(t, tnew))
@@ -126,7 +126,7 @@ indivLIMITED <- stan("stan_files/BATindiv.stan",
                      iter = 1500, chains=4,
                      seed = my_seed)
 z_valsLIMITED <- extract(indivLIMITED)$z
-outLIMITED <- tibble(median = pnorm(apply(z_valsLIMITED[1:2400,], 2, median)),
+outLIMITED <- tibble(mean = pnorm(apply(z_valsLIMITED[1:2400,], 2, mean)),
                lower =  pnorm(apply(z_valsLIMITED[1:2400,], 2, quantile, prob = .025)),
                upper =  pnorm(apply(z_valsLIMITED[1:2400,], 2, quantile, prob = .975)), 
                x = c(t,tnew))
@@ -136,8 +136,8 @@ print(pooled5, pars=c("elleq", "sigma", "mu"), probs=c(0.025, 0.975))
 print(indivALL, pars=c("elleq", "sigma", "mu"), probs=c(0.025, 0.975))
 print(indivLIMITED, pars=c("elleq", "sigma", "mu"), probs=c(0.025, 0.975))
 
-# bat_out <- saveRDS(list(out3, out5, outALL, outLIMITED), file = "bat_out_9052")
-
+bat_out <- saveRDS(list(out3, out5, outALL, outLIMITED), file = "bat_out_9052")
+bat_out <- readRDS("bat_out_9052")
 ggplot() + 
   geom_point(aes(x=as.Date(t,origin), y=(dat$n_pos / dat$n_tests))) + theme_bw() +
   geom_ribbon(data=outLIMITED, aes(x=as.Date(x,origin), ymin=lower, ymax=upper), linetype=1, 
@@ -148,8 +148,8 @@ ggplot() +
               fill='red', alpha=.5) +
   geom_ribbon(data=outALL, aes(x=as.Date(x,origin), ymin=lower, ymax=upper), linetype=1, 
               color='black', alpha=0.) +
-  geom_line(data=outALL, aes(x=as.Date(x,origin), y=median), linetype=1, color='black') +
-  geom_line(data=out3, aes(x=as.Date(x,origin), y=median), linetype=1, color='red') + 
-  geom_line(data=out5, aes(x=as.Date(x,origin), y=median), linetype=2, color='red') +
-  geom_line(data=outLIMITED, aes(x=as.Date(x,origin), y=median), linetype=2, color='yellow') +
+  geom_line(data=outALL, aes(x=as.Date(x,origin), y=mean), linetype=1, color='black') +
+  geom_line(data=out3, aes(x=as.Date(x,origin), y=mean), linetype=1, color='red') + 
+  geom_line(data=out5, aes(x=as.Date(x,origin), y=mean), linetype=2, color='red') +
+  geom_line(data=outLIMITED, aes(x=as.Date(x,origin), y=mean), linetype=2, color='yellow') +
   ylim(0,0.7) + theme_bw()

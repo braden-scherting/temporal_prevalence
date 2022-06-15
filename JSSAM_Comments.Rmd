@@ -184,7 +184,7 @@ __response:__ *To be consistent with notation, we have removed bold notation.*
 
 5. Page 5, lines 19–20: Stating that $\sigma$ 2 and l control the “oscillation speed” and “amplitude” of the process rather than simply saying that $\sigma$ 2 represents the variance of the process and that l is related to the “(effective) range” of the covariance structure seemed strange to me. Perhaps this is simply a difference in terminology between different fields of statistics, but if the authors decide to keep their terminology, I think they should offer alternative interpretations of these parameters.
 
-__response:__ *We replaced oscillation speed and amplitude with variance and effective range.*
+__response:__ *We replaced oscillation speed and amplitude with variance and effective range, as suggested.*
 
 6. Bottom of Page 6: In the equation/expression you have $z_{ti}$ as the random variable, but the text below it you have $y_{ti}$.
 
@@ -227,7 +227,7 @@ __response:__ *For all of the analyses, four Markov chains were used. Generally,
 
 - The figures show the estimated median curve and tables show all the posterior means. Please add some explanation about why showing the median curves. And what is the 95% credible regions based on, posterior median or posterior mean?
 
-__response:__ *__To be consistent we have updated all figures to show posterior means rather than medians.__ Additionally, credible regions are quantile-based.*
+__response:__ *__To be consistent we have updated all figures (5 and 6 done) to show posterior means rather than medians.__ Additionally, credible regions are quantile-based.*
 
 - On Page 9 Figure 2, the y axis limit is 0.5 but as stated in the paper, the prevalence is generally less than about 0.25. Why using the 0.5 as the upper bound for y-axis?
 

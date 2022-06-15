@@ -33,11 +33,11 @@ simplot1 <- ggplot() +
               linetype=0, alpha=.0, size=0.25) + 
   geom_line(data=sim1[[5]], aes(x=t, y=y, color='True', linetype="True"), 
             size=.75) + 
-  geom_line(data=sim1[[2]], aes(x=t, y=median, color='m=1*', linetype="m=1*"),
+  geom_line(data=sim1[[2]], aes(x=t, y=mean, color='m=1*', linetype="m=1*"),
             size=.5) + 
-  geom_line(data=sim1[[6]], aes(x=t, y=median, color='m=1', linetype="m=1"),
+  geom_line(data=sim1[[6]], aes(x=t, y=mean, color='m=1', linetype="m=1"),
             size=.5) + 
-  geom_line(data=sim1[[1]], aes(x=t, y=median, color='m=3', linetype="m=3"),
+  geom_line(data=sim1[[1]], aes(x=t, y=mean, color='m=3', linetype="m=3"),
             size=.5) + 
   geom_rug(data = sim1[[3]], aes(x = t)) +
   scale_fill_manual(values = c("m=1*" = 'blue', "m=3" = 'orangered', "True"='transparent', "m=1" = 'black'),
@@ -69,11 +69,11 @@ simplot2 <- ggplot() +
               linetype=0, size=0.25) + 
   geom_line(data=sim2[[5]], aes(x=t, y=y, color='True', linetype="True"), 
             size=.75) + 
-  geom_line(data=sim2[[2]], aes(x=t, y=median, color='m=1*', linetype="m=1*"),
+  geom_line(data=sim2[[2]], aes(x=t, y=mean, color='m=1*', linetype="m=1*"),
             size=.5) + 
-  geom_line(data=sim2[[6]], aes(x=t, y=median, color='m=1', linetype="m=1"),
+  geom_line(data=sim2[[6]], aes(x=t, y=mean, color='m=1', linetype="m=1"),
             size=.5) + 
-  geom_line(data=sim2[[1]], aes(x=t, y=median, color='m=10', linetype="m=10"),
+  geom_line(data=sim2[[1]], aes(x=t, y=mean, color='m=10', linetype="m=10"),
             size=.5) + 
   geom_rug(data = sim2[[3]], aes(x = t)) +
   scale_fill_manual(values = c("m=1*" = 'blue', "m=10" = 'orangered', "True"='transparent', "m=1" = 'black'),
@@ -119,12 +119,12 @@ ggplot() +
               linetype=2, alpha=.125, color='red', size=0.5) +
   geom_ribbon(data=bat_all, aes(x=dt, ymin=lower, ymax=upper, fill='m=1'), 
               linetype=2, alpha=0.1, color='black', size=0.5) + 
-  geom_line(data=bat_limited, aes(x=dt, y=median, color='m=1*'), linetype=1, size=.75) + 
-  geom_line(data=bat_5, aes(x=dt, y=median, color='m=5'), linetype=1, 
+  geom_line(data=bat_limited, aes(x=dt, y=mean, color='m=1*'), linetype=1, size=.75) + 
+  geom_line(data=bat_5, aes(x=dt, y=mean, color='m=5'), linetype=1, 
             size=.75) + 
-  geom_line(data=bat_3, aes(x=dt, y=median, color='m=3'), linetype=1, 
+  geom_line(data=bat_3, aes(x=dt, y=mean, color='m=3'), linetype=1, 
             size=.75) + 
-  geom_line(data=bat_all, aes(x=dt, y=median, color='m=1'), linetype=1, size=.75) +
+  geom_line(data=bat_all, aes(x=dt, y=mean, color='m=1'), linetype=1, size=.75) +
   geom_point(data=bat_dat, aes(x=date, y=(n_pos / n_tests), shape="Obs. frequency"), size=2) + 
   scale_fill_manual(values = c("m=3" = 'red', "m=5" = 'darkgreen', 
                                "m=1" = 'black', "m=1*" = 'blue'),
@@ -143,7 +143,7 @@ Figure 2: Prevalence among Congo Basin bats considered in this study is estimate
 
 ## Figure 3: NOTRE DAME
 ```{r, echo=F, message=F, fig.width=10}
-nd_dat <- read_csv("my_data/ND_data.csv") %>% filter(surveil_total > 0) %>% mutate(dt = mdy(date))
+nd_dat <- read.csv("my_data/ND_data.csv") %>% filter(surveil_total > 0) %>% mutate(dt = mdy(date))
 nd_out <- readRDS("nd_out_5784")
 
 nd_5 <- nd_out[[1]] %>% mutate(dt = as.Date(x, origin))
@@ -160,13 +160,13 @@ ggplot() +
               linetype=2, alpha=.125, color='red', size=0.5) +
   geom_ribbon(data=nd_all, aes(x=dt, ymin=lower, ymax=upper, fill='m=1'), 
               linetype=2, alpha=0.1, color='black', size=0.5) + 
-  geom_line(data=nd_limited, aes(x=dt, y=median, color='m=1*')) + 
-  geom_line(data=nd_5, aes(x=dt, y=median, color='m=5'), linetype=1, 
+  geom_line(data=nd_limited, aes(x=dt, y=mean, color='m=1*')) + 
+  geom_line(data=nd_5, aes(x=dt, y=mean, color='m=5'), linetype=1, 
             size=.75) + 
-  geom_line(data=nd_10, aes(x=dt, y=median, color='m=10'), linetype=1, 
+  geom_line(data=nd_10, aes(x=dt, y=mean, color='m=10'), linetype=1, 
             size=.75) + 
-  geom_line(data=nd_all, aes(x=dt, y=median, color='m=1'), linetype=1, size=.75) + 
-  geom_line(data=nd_limited, aes(x=dt, y=median, color='m=1*'), linetype=1, size=.75) + 
+  geom_line(data=nd_all, aes(x=dt, y=mean, color='m=1'), linetype=1, size=.75) + 
+  geom_line(data=nd_limited, aes(x=dt, y=mean, color='m=1*'), linetype=1, size=.75) + 
   geom_point(data=nd_dat, aes(x=dt, y=(surveil_pos / surveil_total), shape="Obs. frequency"), size=.75) + 
   scale_fill_manual(values = c("m=1*" = 'blue', "m=5" = 'red', "m=10" = 'darkgreen', 
                                "m=1" = 'black'),

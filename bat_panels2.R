@@ -99,7 +99,7 @@ toc()
 
 
 save(bat_fit, file = "bat_integrate.RData")
-
+load("bat_integrate.RData")
 #launch_shinystan(bat_fit)
 print(bat_fit, pars=c("elleq", "sigma", "mu", "mu_group"), probs=c(0.025, 0.975))
 zzz <- extract(bat_fit)$z
@@ -114,7 +114,7 @@ zzz <- extract(bat_fit)$z
 out_indiv <- tibble(t = as_date(time_int)[(N_indiv+1):(N_indiv+N_pool +N_pred)],
                     group_ids = c(rep('overall', N_pool), 
                                   rep('overall', N_pred)),
-                    median = pnorm(apply(zzz[,(N_indiv+1):(N_indiv+N_pool +N_pred)], 2, median)),
+                    mean = pnorm(apply(zzz[,(N_indiv+1):(N_indiv+N_pool +N_pred)], 2, mean)),
                     lower = pnorm(apply(zzz[,(N_indiv+1):(N_indiv+N_pool +N_pred)], 2, quantile, prob=0.025)),
                     uper = pnorm(apply(zzz[,(N_indiv+1):(N_indiv+N_pool +N_pred)], 2, quantile, prob=0.975)))
 
@@ -128,11 +128,11 @@ zzz4 <- eta + matrix(extract(bat_fit)$mu_group[,4], nrow = 4000, ncol = N_pred)
 zzz5 <- eta + matrix(extract(bat_fit)$mu_group[,5], nrow = 4000, ncol = N_pred)
 
 preds_grp1 <- tibble(t = rep(as_date(tnew), 5),
-                     median = c(pnorm(apply(zzz1, 2, median)),
-                                pnorm(apply(zzz2, 2, median)),
-                                pnorm(apply(zzz3, 2, median)),
-                                pnorm(apply(zzz4, 2, median)),
-                                pnorm(apply(zzz5, 2, median))),
+                     mean = c(pnorm(apply(zzz1, 2, mean)),
+                                pnorm(apply(zzz2, 2, mean)),
+                                pnorm(apply(zzz3, 2, mean)),
+                                pnorm(apply(zzz4, 2, mean)),
+                                pnorm(apply(zzz5, 2, mean))),
                      lower = c(pnorm(apply(zzz1, 2, quantile, prob=0.025)),
                                pnorm(apply(zzz2, 2, quantile, prob=0.025)),
                                pnorm(apply(zzz3, 2, quantile, prob=0.025)),
@@ -157,16 +157,21 @@ pool_obs <- tibble(counts = as.numeric(pool$pos > 0),
 
 rug_data <- tibble(t = c(pool$Sampling_Date, indiv$Sampling_Date), group_ids = c(rep('overall', N_pool), indiv$Species)) 
 
+pdf(file = "JSSAM/Figure6.pdf",   # The directory you want to save the file in
+    width = 8, # The width of the plot in inches
+    height = 6)
 
 out_indiv %>% ggplot() +
   geom_ribbon(aes(x=t, ymin=lower, ymax=uper), fill='blue', alpha=0.25) +
   geom_ribbon(aes(x=t, ymin=lower, ymax=uper), fill='blue', alpha=0.25, data = preds_grp1) +
-  geom_line(aes(x=t, y=median), linetype = 3, data = preds_grp1) +
+  geom_line(aes(x=t, y=mean), linetype = 3, data = preds_grp1) +
   theme_bw() +
   facet_wrap(~factor(group_ids, levels = c(species_interest, 'overall'))) + 
-  geom_line( aes(x=t, y=median), linetype=3) +
+  geom_line( aes(x=t, y=mean), linetype=3) +
   geom_point(data=indiv_obs, aes(x=time, y=counts), shape=4) +
   geom_point(data=pool_obs, aes(x=time, y=counts), shape=17, alpha = .2) +
     ylim(0,1) + geom_rug(aes(t), data = rug_data) + ylab("Prevalence") + 
   xlab("Date") + scale_x_date(date_labels = "%Y", date_breaks = "1 year") +
   ggtitle("Data integration procedure for Congo Basin bats")
+
+dev.off()
