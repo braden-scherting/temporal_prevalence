@@ -17,8 +17,8 @@ bat_dat <- read.csv("my_data/batCoV.csv") %>%
 
 bat_dat <- bat_dat %>% group_by(Animal_ID) %>% sample_n(1) %>% ungroup()
 
-bat_dat %>% group_by(Sampling_Date) %>% summarize(prev = mean(positive), n = n()) %>% 
-  ggplot(aes(y = prev, x = Sampling_Date)) + geom_point() + geom_line()
+# bat_dat %>% group_by(Sampling_Date) %>% summarize(prev = mean(positive), n = n()) %>% 
+#   ggplot(aes(y = prev, x = Sampling_Date)) + geom_point() + geom_line()
 
 
 

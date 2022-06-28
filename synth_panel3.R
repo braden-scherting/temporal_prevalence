@@ -380,7 +380,7 @@ out_indiv %>% ggplot() +
   facet_wrap(~group_ids) + geom_line(data = out_indiv, aes(x=t, y=mean)) +
   geom_point(data=indiv_obs, aes(x=time, y=counts), shape=4) +
   ylim(0,.3) + geom_rug(aes(x = t), data = rug_data) + ylab("Prevalence") +
-  xlab('Days') + ggtitle('Synthetic study 3')
+  xlab('Days') + ggtitle('Simulation study 3')
 
 dev.off()
 # plot(fit5, pars = c('mu', 'mu_group')) + 

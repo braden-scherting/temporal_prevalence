@@ -15,6 +15,9 @@ library(lubridate)
 \newpage
 ## Figure 1: 
 ```{r, echo=F, message=F, fig.width=10, fig.height=5.5}
+pdf(file = "JSSAM/Figure1.pdf",   
+    width = 10, 
+    height = 5.5)
 sim1 <- readRDS("SIMpanel1_370119")
 sim2 <- readRDS("SIMpanel_489713")
 
@@ -50,7 +53,7 @@ simplot1 <- ggplot() +
                      breaks = c("True", "m=1*", "m=1", "m=3")) +
   labs(color = "", fill="", linetype="", alpha="") + theme_bw() + 
   xlab("") + ylab("") + ylim(0,0.4) + theme(legend.key.size=unit(1.5,"lines")) + 
-  ggtitle("Synthetic study 1") +
+  ggtitle("Simulation study 1") +
   theme(plot.title = element_text(size = 12))
 
 
@@ -86,13 +89,14 @@ simplot2 <- ggplot() +
                      breaks = c("True", "m=1*", "m=1", "m=10")) +
   labs(color = "", fill="", linetype="", alpha="") + theme_bw() + 
   xlab("") + ylab("") + ylim(0,0.045) + theme(legend.key.size=unit(1.5,"lines")) +
-  ggtitle("Synthetic study 2", ) + theme(plot.title = element_text(size = 12))
+  ggtitle("Simlulation study 2", ) + theme(plot.title = element_text(size = 12))
 
 ggarrange(simplot1, simplot2, nrow=2) %>% 
   annotate_figure(left = text_grob("Prevalence", size=13, rot = 90), 
                   bottom = text_grob("Days", size=13), 
                   top=text_grob("Pooled samples recover true prevalence", size=17))
-  
+
+dev.off()  
 ```
 \begin{center}
 Figure 1: Estimated median curves and 95\% credible regions are provided for each synthetic study under each sampling strategy. Rug marks indicate when sampling occurred. In both cases, the pooled estimates closely track true, unobserved prevalence (black, dotted) and $m=1$ estimates (black, solid). Estimates from limited individual sampling (blue, solid) are less precise and fail to accurately recover true prevalence. 
@@ -102,6 +106,9 @@ Figure 1: Estimated median curves and 95\% credible regions are provided for eac
 
 ## Figure 2: BATS
 ```{r, fig.cap="orh here?", echo=F, message=F, fig.width=10}
+pdf(file = "JSSAM/Figure2.pdf",   
+    width = 10, 
+    height = 5.5)
 bat_dat <- read_csv("my_data/batDataAggregated.csv")[23:42,] %>% mutate(date = mdy(date))
 bat_out <- readRDS("bat_out_9052")
 
@@ -135,6 +142,7 @@ ggplot() +
   labs(color = "", fill="", shape="") + theme_bw() + ylim(0,0.4) + 
   xlab("Date") + ylab("Prevalence") + ggtitle("Prevalence among Congo Basin bats") +
   theme(legend.key.size=unit(1.5,"lines"))
+dev.off()
 ```
 \begin{center}
 Figure 2: Prevalence among Congo Basin bats considered in this study is estimated in four ways; medians and 95\% credible regions are displayed for each. Universal individual testing estimates (black) and pooled estimates (red, green) exhibit high visual similarity; pooling introduces slight, additional uncertainty. Estimates from limited individual testing (blue) capture the same overall trend but deviate from other estimates and possess more uncertainty throughout. 
@@ -143,6 +151,9 @@ Figure 2: Prevalence among Congo Basin bats considered in this study is estimate
 
 ## Figure 3: NOTRE DAME
 ```{r, echo=F, message=F, fig.width=10}
+pdf(file = "JSSAM/Figure3.pdf",   
+    width = 10, 
+    height = 5.5)
 nd_dat <- read.csv("my_data/ND_data.csv") %>% filter(surveil_total > 0) %>% mutate(dt = mdy(date))
 nd_out <- readRDS("nd_out_5784")
 
@@ -178,6 +189,7 @@ ggplot() +
   labs(color = "", fill="", shape="") + theme_bw() + ylim(0,.05) + 
   xlab("Date") + ylab("Prevalence") + ggtitle("Notre Dame COVID-19 asymptomatic surveillance") +
   theme(legend.key.size=unit(1.5,"lines"))
+dev.off()
 ```
 \begin{center}
 Figure 3: Four estimated median prevalence curves and associated 95\% credible regions of prevalence among asymptomatic individuals at Notre Dame are displayed. For most time points, universal individual (black) and pooled (red, green) estimates are visually indistinguishable. Estimates from limited individual testing (blue) are, again, deviant and more uncertain, on average. 
@@ -188,13 +200,15 @@ Figure 3: Four estimated median prevalence curves and associated 95\% credible r
 ## Figure 4: SAMPLING VARIABILITY
 ```{r, fig.width=10, fig.height=5.5}
 # 
-
+pdf(file = "JSSAM/Figure4.pdf",   
+    width = 10, 
+    height = 5.5)
 sv_pool <- readRDS("BATsampvar2_187") %>% mutate(dt = as.Date(t, origin))
 sv_indiv <- readRDS("BATsampvarIndiv692") %>% mutate(dt = as.Date(t, origin))
 
 sv1 <- ggplot() + 
   geom_line(data=sv_pool, aes(x=dt, y=med, group=lab, color='m=3'), alpha=0.25) +
-  geom_line(data=bat_all, aes(x=dt, y=median, color='m=1')) + 
+  geom_line(data=bat_all, aes(x=dt, y=mean, color='m=1')) + 
   geom_line(data=bat_all, aes(x=dt, y=lower), color='black', linetype=3) + 
   geom_line(data=bat_all, aes(x=dt, y=upper), color='black', linetype=3) +
   geom_point(data=bat_dat, aes(x=date, y=(n_pos / n_tests))) + 
@@ -206,8 +220,8 @@ sv1 <- ggplot() +
   theme(plot.title = element_text(size = 12))
 
 sv2 <- ggplot() + 
-  geom_line(data=sv_indiv, aes(x=dt, y=med, group=lab, color='m=1*'), alpha=0.25) +
-  geom_line(data=bat_all, aes(x=dt, y=median, color='m=1')) + 
+  geom_line(data=sv_indiv, aes(x=dt, y=mean, group=lab, color='m=1*'), alpha=0.25) +
+  geom_line(data=bat_all, aes(x=dt, y=mean, color='m=1')) + 
   geom_line(data=bat_all, aes(x=dt, y=lower), color='black', linetype=3) + 
   geom_line(data=bat_all, aes(x=dt, y=upper), color='black', linetype=3) +
   geom_point(data=bat_dat, aes(x=date, y=(n_pos / n_tests))) + 
@@ -221,6 +235,7 @@ sv2 <- ggplot() +
 
 ggarrange(sv1, sv2, nrow = 2) %>% 
   annotate_figure(left = "Prevalence", top = text_grob("Sampling variability in study design", size = 15))
+dev.off()
 ```
 \begin{center}
 Figure 4: Estimated median curves for 25 resampled pool configurations and 25 subsampled individual configurations are displayed over the estimated median from all available date and corresponding 95\% credible region (identical to Fig.2, black). Pooled estimates are relatively stable under reconfiguration, but estimates from subsampled individual data are quite sensitive to the subsampling procedure. 
